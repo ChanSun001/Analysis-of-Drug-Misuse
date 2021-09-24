@@ -1,0 +1,35 @@
+---
+title: "Data Fest"
+author: "Chang Sun"
+date: "29/04/2021"
+output: pdf_document
+---
+```{r}
+Datafest <- read.csv("ca.csv")
+Datafest
+```
+```{r}
+library(corrplot)
+Frequency_of_substance_use <- Datafest[, c("CAN_REC_USE", "CAN_MED_USE", "CAN_USE", "COKE_USE", "CRACK_USE", "MDMA_USE", "GHB_USE", "HAL_USE", "INH_USE", "SPEED_USE", "NPFENT_USE", "HEROIN_USE", "KET_USE", "MEPH_USE", "SPICE_USE", "SAL_USE", "STER_USE")]
+corrplot(cor(Frequency_of_substance_use), method = "color")
+
+Substance_lifetime_use <- Datafest[, c("OP_USE", "FENT_USE", "BUP_USE", "METH_USE", "MORPH_USE", "OXY_USE", "OXYM_USE", "TRAM_USE", "TAP_USE", "COD_USE", "HYD_USE", "HYDM_USE", "SUF_USE", "STIM_USE", "BENZ_USE", "THC_USE", "OTH_RX_DRUG_USE")]
+corrplot(cor(Substance_lifetime_use), method = "color")
+
+Mental_disorders <- Datafest[, c("MENT_ANX", "MENT_ADHD", "MENT_AUT", "MENT_BIP", "MENT_BPD", "MENT_DEP", "MENT_EAT", "MENT_OCD", "MENT_PANIC", "MENT_PPD", "MENT_PTSD", "MENT_SCH", "MENT_OTH")]
+corrplot(cor(Mental_disorders), method = "color")
+
+Substance_NMU <- Datafest[, c("OP_NMU_NTY", "BENZ_NMU_NTY", "STIM_NMU_NTY", "GABA_NMU_NTY", "FENT_NMU_NTY", "BUP_NMU_NTY", "METH_NMU_NTY", "MORPH_NMU_NTY", "OXY_NMU_NTY", "OXYM_NMU_NTY", "TRAM_NMU_NTY", "TAP_NMU_NTY", "COD_NMU_NTY", "COTC_NMU_NTY", "HYD_NMU_NTY", "HYDM_NMU_NTY", "SUF_NMU_NTY")]
+corrplot(cor(Substance_NMU), method = "color")
+
+devtools::install_github("laresbernardo/lares")
+library(lares)
+corr_cross(Frequency_of_substance_use, max_pvalue = 0.05, top = 5)
+corr_cross(Substance_lifetime_use, max_pvalue = 0.05, top = 5)
+corr_cross(Mental_disorders, max_pvalue = 0.05, top = 5)
+corr_cross(Substance_NMU, max_pvalue = 0.05, top = 5)
+corr_var(Substance_lifetime_use, OP_USE, top = 10)
+```
+
+
+
